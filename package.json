@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "del-cli 'dist/*.json' && ts-node --experimental-specifier-resolution=node ."
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^18.15.0",
+    "del-cli": "^5.0.0",
+    "ts-node": "^10.9.1"
+  }
+}
