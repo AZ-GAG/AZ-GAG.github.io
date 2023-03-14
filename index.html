@@ -1,1 +1,194 @@
-usage: query index.json or ${i}.json
+<!-- usage: query index.json or ${i}.json -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아재 개그</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      font-size: 1rem;
+      color: black;
+      background-color: white;
+    }
+
+    main {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro {
+      margin-bottom: 3rem;
+    }
+
+    .title {
+      font-size: 1.75rem;
+    }
+
+    .az-gag-submit {
+      width: 100%;
+      display: flex;
+    }
+
+    .az-gag-submit-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.2rem;
+      box-shadow: 4px 8px 4px rgba(0 0 0/0.15);
+      color: #b9b6d3;
+    }
+
+    .form-input {
+      width: 100%;
+      margin-bottom: 1em;
+      position: relative;
+    }
+
+    .form-input span {
+      position: absolute;
+      top: 10%;
+      right: 0;
+      padding: 0 0.65em;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      display: none;
+    }
+
+    .form-input.warning span {
+      display: inline-block;
+    }
+
+    .form-input input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 2px solid rgba(185, 182, 211, 0.25);
+      font-weight: 600;
+      color: #3e3c49;
+    }
+
+    .form-input div {
+      width: calc(100% - 20px);
+      padding: 10px;
+      color: #3e3c49;
+    }
+
+    .form-input input:focus {
+      outline: none;
+      border: 2px solid #b9b6d3;
+    }
+
+    .form-input.warning input {
+      border: 2px solid #ff7a7a;
+    }
+
+    .form-input p {
+      margin: 0.2em 0.75em 0 0;
+      display: none;
+      font-size: 0.75rem;
+      text-align: right;
+      font-style: italic;
+      color: red;
+    }
+
+    .form-input.warning p {
+      display: block;
+    }
+
+    .submit-btn {
+      cursor: pointer;
+      width: 100%;
+      padding: 1em;
+      margin-bottom: 1em;
+      border: none;
+      border-bottom: 5px solid green;
+      background-color: green;
+      color: white;
+      font-weight: 600;
+    }
+
+    .submit-btn:hover {
+      background-color: #5dd5a1;
+    }
+
+    .form-term {
+      margin-bottom: 0.75em;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .form-term span {
+      font-weight: 700;
+      color: red;
+    }
+
+    #title {
+      color: black
+    }
+
+    .az-gag-submit-form {
+      padding: 1.75rem;
+      margin: 1rem;
+
+    }
+
+    @media (max-width: 768px) {
+      .az-gag-submit {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="intro">
+      <h1 class="title">아재개그 사이트 제목</h1>
+      <p>대충 아재개그에 대한 좋은점을 찬양하는 글, 문제를 풀지 못하면 시간이 간다는 걸 설명하는 글</p>
+    </section>
+
+    <h1>AWESOME TIMER</h1>
+    <h1>캐릭터가 다가오는 화면</h1>
+
+    <section class="az-gag-submit">
+      <form class="az-gag-submit-form">
+        <p id="title"> 아재개그 제출하기 </p>
+        <div class="form-input">
+          <input type="text" name="question" id="question" placeholder="질문" required>
+          <span>!</span>
+          <p class="warning">아재개그 질문을 제대로 작성해주세요!</p>
+        </div>
+
+        <div class="form-input">
+          <input type="text" name="answer" id="answer" placeholder="답변" required>
+          <span>!</span>
+          <p class="warning">아재개그 답변을 제대로 작성해주세요!</p>
+        </div>
+
+        <input class="submit-btn" type="submit" value="제출하기">
+        <p class="form-term"> 대충 여기에 제출한 정보는 모두 아재개그 동아리에 속한다는 글 <span>정보 취급에 대한 글이 담긴 링크</span> </p>
+      </form>
+
+      <form class="az-gag-submit-form">
+        <p id="title"> 아재개그 퀴즈 </p>
+        <div class="form-input">
+          <div id="question">API에서 가지고온 질문</div>
+        </div>
+        <div class="form-input">
+          <input type="text" name="answer" id="answer" placeholder="답변" required>
+          <span>!</span>
+          <p class="warning">아재개그 답변을 제대로 작성해주세요!</p>
+        </div>
+        <input class="submit-btn" type="submit" value="채점받기">
+        <p class="form-term"> 대충 여기에 제출한 정보는 모두 아재개그 동아리에 속한다는 글 <span>정보 취급에 대한 글이 담긴 링크</span> </p>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
