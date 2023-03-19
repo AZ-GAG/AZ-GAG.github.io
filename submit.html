@@ -21,12 +21,6 @@
       justify-content: center;
     }
 
-    footer {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      text-align: center;
-    }
-
     .intro {
       margin-bottom: 3rem;
     }
@@ -163,21 +157,25 @@
 
     <section class="az-gag-submit">
       <form class="az-gag-submit-form">
-        <p id="title"> 아재개그 퀴즈 </p>
+        <p id="title"> 아재개그 제출하기 </p>
         <div class="form-input">
-          <div id="question">API에서 가지고온 질문</div>
+          <input type="text" name="question" id="question" placeholder="질문" required>
+          <span>!</span>
+          <p class="warning">아재개그 질문을 제대로 작성해주세요!</p>
         </div>
+
         <div class="form-input">
           <input type="text" name="answer" id="answer" placeholder="답변" required>
           <span>!</span>
           <p class="warning">아재개그 답변을 제대로 작성해주세요!</p>
         </div>
-        <input class="submit-btn" type="submit" value="채점받기">
+
+        <input class="submit-btn" type="submit" value="제출하기">
         <p class="form-term"> 대충 여기에 제출한 정보는 모두 아재개그 동아리에 속한다는 글 <span>정보 취급에 대한 글이 담긴 링크</span> </p>
       </form>
     </section>
     <footer>
-      <a href="./submit.html">아재개그 제출링크</a>
+      <a href="./index.html">아재개그 퀴즈 링크</a>
     </footer>
   </main>
 </body>
