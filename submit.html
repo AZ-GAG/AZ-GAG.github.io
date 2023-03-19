@@ -1,5 +1,15 @@
 <!-- usage: query index.json or ${i}.json -->
-
+<script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    new TypeIt(".title", {
+      breakLines: false,
+      speed: 75,
+      loop: false,
+    }).move(-7).pause(1000).delete(7).type("카뎃을 ").pause(1000).delete(4).type("당신을 ").move(7).go();
+  }
+  );
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -7,142 +17,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>아재 개그</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      font-size: 1rem;
-      color: black;
-      background-color: white;
-    }
-
-    main {
-      align-items: center;
-      justify-content: center;
-    }
-
-    .intro {
-      margin-bottom: 3rem;
-    }
-
-    .title {
-      font-size: 1.75rem;
-    }
-
-    .az-gag-submit {
-      width: 100%;
-      display: flex;
-    }
-
-    .az-gag-submit-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1.2rem;
-      box-shadow: 4px 8px 4px rgba(0 0 0/0.15);
-      color: #b9b6d3;
-    }
-
-    .form-input {
-      width: 100%;
-      margin-bottom: 1em;
-      position: relative;
-    }
-
-    .form-input span {
-      position: absolute;
-      top: 10%;
-      right: 0;
-      padding: 0 0.65em;
-      border-radius: 50%;
-      background-color: red;
-      color: white;
-      display: none;
-    }
-
-    .form-input.warning span {
-      display: inline-block;
-    }
-
-    .form-input input {
-      width: calc(100% - 20px);
-      padding: 10px;
-      border: 2px solid rgba(185, 182, 211, 0.25);
-      font-weight: 600;
-      color: #3e3c49;
-    }
-
-    .form-input div {
-      width: calc(100% - 20px);
-      padding: 10px;
-      color: #3e3c49;
-    }
-
-    .form-input input:focus {
-      outline: none;
-      border: 2px solid #b9b6d3;
-    }
-
-    .form-input.warning input {
-      border: 2px solid #ff7a7a;
-    }
-
-    .form-input p {
-      margin: 0.2em 0.75em 0 0;
-      display: none;
-      font-size: 0.75rem;
-      text-align: right;
-      font-style: italic;
-      color: red;
-    }
-
-    .form-input.warning p {
-      display: block;
-    }
-
-    .submit-btn {
-      cursor: pointer;
-      width: 100%;
-      padding: 1em;
-      margin-bottom: 1em;
-      border: none;
-      border-bottom: 5px solid green;
-      background-color: green;
-      color: white;
-      font-weight: 600;
-    }
-
-    .submit-btn:hover {
-      background-color: #5dd5a1;
-    }
-
-    .form-term {
-      margin-bottom: 0.75em;
-      font-size: 0.8rem;
-      text-align: center;
-    }
-
-    .form-term span {
-      font-weight: 700;
-      color: red;
-    }
-
-    #title {
-      color: black
-    }
-
-    .az-gag-submit-form {
-      padding: 1.75rem;
-      margin: 1rem;
-
-    }
-
-    @media (max-width: 768px) {
-      .az-gag-submit {
-        display: grid;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -151,7 +25,6 @@
       <h1 class="title">아재개그 사이트 제목</h1>
       <p>대충 아재개그에 대한 좋은점을 찬양하는 글, 문제를 풀지 못하면 시간이 간다는 걸 설명하는 글</p>
     </section>
-
     <h1>AWESOME TIMER</h1>
     <h1>캐릭터가 다가오는 화면</h1>
 
@@ -181,3 +54,155 @@
 </body>
 
 </html>
+<style>
+  :root {
+    --ti-cursor-margin-left: 0.1em;
+    --ti-cursor-color: #b9b6d3;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    color: black;
+    background-color: white;
+  }
+
+  main {
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+    background-image: linear-gradient(90deg, red, orange, yellow, green, blue, navy, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .az-gag-submit {
+    width: 100%;
+    display: flex;
+  }
+
+  .az-gag-submit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem;
+    box-shadow: 4px 8px 4px rgba(0 0 0/0.15);
+    color: #b9b6d3;
+  }
+
+  .form-input {
+    width: 100%;
+    margin-bottom: 1em;
+    position: relative;
+  }
+
+  .form-input span {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    padding: 0 0.65em;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    display: none;
+  }
+
+  .form-input.warning span {
+    display: inline-block;
+  }
+
+  .form-input input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 2px solid rgba(185, 182, 211, 0.25);
+    font-weight: 600;
+    color: #3e3c49;
+  }
+
+  .form-input div {
+    width: calc(100% - 20px);
+    padding: 10px;
+    color: #3e3c49;
+  }
+
+  .form-input input:focus {
+    outline: none;
+    border: 2px solid #b9b6d3;
+  }
+
+  .form-input.warning input {
+    border: 2px solid #ff7a7a;
+  }
+
+  .form-input p {
+    margin: 0.2em 0.75em 0 0;
+    display: none;
+    font-size: 0.75rem;
+    text-align: right;
+    font-style: italic;
+    color: red;
+  }
+
+  .form-input.warning p {
+    display: block;
+  }
+
+  .submit-btn {
+    cursor: pointer;
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 5px solid green;
+    background-color: green;
+    color: white;
+    font-weight: 600;
+  }
+
+  .submit-btn:hover {
+    background-color: #5dd5a1;
+  }
+
+  .form-term {
+    margin-bottom: 0.75em;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .form-term span {
+    font-weight: 700;
+    color: red;
+  }
+
+  #title {
+    color: black
+  }
+
+  .az-gag-submit-form {
+    padding: 1.75rem;
+    margin: 1rem;
+
+  }
+
+  @media (max-width: 768px) {
+    .az-gag-submit {
+      display: grid;
+    }
+  }
+</style>
