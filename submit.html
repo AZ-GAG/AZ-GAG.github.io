@@ -22,36 +22,38 @@
 <body>
   <main>
     <section class="intro">
-      <h1 class="title">지구평화를 위한 아재개그</h1>
+      <h1 class="title">아재개그 사이트 제목</h1>
       <p>대충 아재개그에 대한 좋은점을 찬양하는 글, 문제를 풀지 못하면 시간이 간다는 걸 설명하는 글</p>
     </section>
-
     <h1>AWESOME TIMER</h1>
     <h1>캐릭터가 다가오는 화면</h1>
 
     <section class="az-gag-submit">
       <form class="az-gag-submit-form">
-        <p id="title"> 아재개그 퀴즈 </p>
+        <p id="title"> 아재개그 제출하기 </p>
         <div class="form-input">
-          <div id="question">API에서 가지고온 질문</div>
+          <input type="text" name="question" id="question" placeholder="질문" required>
+          <span>!</span>
+          <p class="warning">아재개그 질문을 제대로 작성해주세요!</p>
         </div>
+
         <div class="form-input">
           <input type="text" name="answer" id="answer" placeholder="답변" required>
           <span>!</span>
           <p class="warning">아재개그 답변을 제대로 작성해주세요!</p>
         </div>
-        <input class="submit-btn" type="submit" value="채점받기">
+
+        <input class="submit-btn" type="submit" value="제출하기">
         <p class="form-term"> 대충 여기에 제출한 정보는 모두 아재개그 동아리에 속한다는 글 <span>정보 취급에 대한 글이 담긴 링크</span> </p>
       </form>
     </section>
     <footer>
-      <a href="./submit.html">아재개그 제출링크</a>
+      <a href="./index.html">아재개그 퀴즈 링크</a>
     </footer>
   </main>
 </body>
 
 </html>
-
 <style>
   :root {
     --ti-cursor-margin-left: 0.1em;
