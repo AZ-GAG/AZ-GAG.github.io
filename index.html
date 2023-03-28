@@ -9,6 +9,74 @@
     }).move(-7).pause(1000).delete(7).type("카뎃을 ").pause(1000).delete(4).type("당신을 ").move(7).go();
   }
   );
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const _hours = document.querySelectorAll('.hours');
+    const _minutes = document.querySelectorAll('.minutes');
+    const _seconds = document.querySelectorAll('.seconds');
+    const _mils = document.querySelectorAll('.mils');
+
+    setInterval(() => {
+      // TODO: 서버에서 마감까지 남은 시간 가지고 와서 설정
+      const date = new Date();
+      const hours = date.getHours(), minutes = date.getMinutes(), seconds = date.getSeconds();
+
+      setNumber(_hours[0], Math.floor(hours / 10), 1);
+      setNumber(_hours[1], hours % 10, 1);
+
+      setNumber(_minutes[0], Math.floor(minutes / 10), 1);
+      setNumber(_minutes[1], minutes % 10, 1);
+
+      setNumber(_seconds[0], Math.floor(seconds / 10), 1);
+      setNumber(_seconds[1], seconds % 10, 1);
+
+      setNumber(_mils[0], Math.floor(date.getMilliseconds() / 100), 1);
+      setNumber(_mils[1], Math.floor(date.getMilliseconds() / 10) % 10, 1);
+      setNumber(_mils[2], date.getMilliseconds() % 10, 1);
+    }, 42);
+  });
+
+  const setNumber = (digit, number, on) => {
+    const segments = digit.querySelectorAll('.segment');
+    const current = parseInt(digit.getAttribute('data-value'));
+
+    // only switch if number has changed or wasn't set
+    if (!isNaN(current) && current != number) {
+      // unset previous number
+      digitSegments[current].forEach((digitSegment, index) => {
+        setTimeout(() => {
+          segments[digitSegment - 1].classList.remove('on');
+        }, index * 45)
+      });
+    }
+
+    if (isNaN(current) || current != number) {
+      // set new number after
+      setTimeout(() => {
+        digitSegments[number].forEach((digitSegment, index) => {
+          setTimeout(() => {
+            segments[digitSegment - 1].classList.add('on');
+          }, index * 45)
+        });
+      }, 250);
+      digit.setAttribute('data-value', number);
+    }
+  }
+
+
+  const digitSegments = [
+    [1, 2, 3, 4, 5, 6],
+    [2, 3],
+    [1, 2, 7, 5, 4],
+    [1, 2, 7, 3, 4],
+    [6, 7, 2, 3],
+    [1, 6, 7, 3, 4],
+    [1, 6, 5, 4, 3, 7],
+    [1, 2, 3],
+    [1, 2, 3, 4, 5, 6, 7],
+    [1, 2, 7, 3, 6]
+  ]
+
 </script>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,8 +94,103 @@
       <p>대충 아재개그에 대한 좋은점을 찬양하는 글, 문제를 풀지 못하면 시간이 간다는 걸 설명하는 글</p>
     </section>
 
-    <h1>AWESOME TIMER</h1>
-    <h1>캐릭터가 다가오는 화면</h1>
+    <section class="timer">
+      <div class="clock">
+        <div class="digit hours">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="digit hours">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="digit minutes">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="digit minutes">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="digit seconds">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="digit seconds">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="digit mils">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+        <div class="digit mils">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+        <div class="digit mils">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+      </div>
+    </section>
 
     <section class="az-gag-submit">
       <form class="az-gag-submit-form">
@@ -178,6 +341,101 @@
     font-weight: 600;
   }
 
+  .digit {
+    width: 120px;
+    height: 200px;
+    margin: 0 5px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .digit .segment {
+    background: #c00;
+    border-radius: 5px;
+    position: absolute;
+    opacity: 0.15;
+    transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+  }
+
+  .digit .segment.on,
+  .separator {
+    opacity: 1;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
+    transition: opacity 0s;
+    -webkit-transition: opacity 0s;
+    -ms-transition: opacity 0s;
+    -moz-transition: opacity 0s;
+    -o-transition: opacity 0s;
+  }
+
+  .separator {
+    width: 20px;
+    height: 20px;
+    background: #c00;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: -90px;
+  }
+
+  .digit .segment:nth-child(1) {
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    height: 10px;
+  }
+
+  .digit .segment:nth-child(2) {
+    top: 20px;
+    right: 10px;
+    width: 10px;
+    height: 75px;
+    height: calc(50% - 25px);
+  }
+
+  .digit .segment:nth-child(3) {
+    bottom: 20px;
+    right: 10px;
+    width: 10px;
+    height: 75px;
+    height: calc(50% - 25px);
+  }
+
+  .digit .segment:nth-child(4) {
+    bottom: 10px;
+    right: 20px;
+    height: 10px;
+    left: 20px;
+  }
+
+  .digit .segment:nth-child(5) {
+    bottom: 20px;
+    left: 10px;
+    width: 10px;
+    height: 75px;
+    height: calc(50% - 25px);
+  }
+
+  .digit .segment:nth-child(6) {
+    top: 20px;
+    left: 10px;
+    width: 10px;
+    height: 75px;
+    height: calc(50% - 25px);
+  }
+
+  .digit .segment:nth-child(7) {
+    bottom: 95px;
+    bottom: calc(50% - 5px);
+    right: 20px;
+    left: 20px;
+    height: 10px;
+  }
+
   .submit-btn:hover {
     background-color: #5dd5a1;
   }
@@ -204,9 +462,14 @@
 
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     .az-gag-submit {
       display: grid;
+    }
+
+    .digit {
+      width: 20%;
+      height: 140px;
     }
   }
 </style>
