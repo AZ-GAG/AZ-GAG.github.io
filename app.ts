@@ -4,7 +4,12 @@ import morgan from 'morgan';
 
 const app = express();
 const time_file_path = 'time.txt';
-const time_to_hell = 5;
+
+/*
+** 7일 후에 hell로 보내는 서버
+** 기간을 늘리고 싶으면 Day 단위로 아래의 time_to_hell 값을 변경하면 된다.
+*/
+const time_to_hell = 7;
 
 app.use(morgan('combined'));
 
@@ -14,27 +19,27 @@ if (check_time_file() === false) {
 let limitTime : Date = read_time_file(time_file_path);
 
 app.get('/time', (req: Request, res: Response) => {
-  // return the remaining time
-  // remaining time = limitTime - now
   if (limitTime === undefined) {
     res.status(500);
     res.send('No limit time');
   } else {
     const now = new Date();
     const remainTime = limitTime.getTime() - now.getTime();
-    // console.log(remainTime);
-    // res.send(remainTime.toString());
     res.status(200);
     res.send(get_time_in_form_DHMS(remainTime));
   }
 });
 
 app.post('/time', (req: Request, res: Response) => {
-    // set the limit time
-    // limitTime = now + 5 days
-    write_refresh_limit_time(time_file_path);
+    console.log('POST /time');
+    if (write_refresh_limit_time(time_file_path) === false) {
+        res.status(500);
+        res.send('Refresh failed');
+    } else {
+        limitTime = read_time_file(time_file_path);
+    }
     res.status(200);
-    res.send(`Success to set limit time: ${limitTime}`);
+    res.send('Refreshed');
 });
 
 app.listen(3000, () => {
@@ -42,15 +47,20 @@ app.listen(3000, () => {
     console.log('Server Start with Limit time:', limitTime);
 });
 
-function write_refresh_limit_time(path : string) : void {
+/*
+** util functions ================================================
+*/
+function write_refresh_limit_time(path : string) : Boolean {
     let new_limit_date : Date = new Date();
     new_limit_date.setDate(new_limit_date.getDate() + time_to_hell);
     try {
         fs.writeFileSync(path, new_limit_date.toString());
         console.log(`${write_refresh_limit_time.name} : ${new_limit_date}`)
+        return true;
     } catch (err) {
         console.error(err);
     }
+    return false;
 }
 
 function check_time_file() : boolean {
