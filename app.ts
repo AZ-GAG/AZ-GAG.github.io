@@ -1,22 +1,17 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
-
+import morgan from 'morgan';
 
 const app = express();
-
-let limitTime: Date | undefined = undefined;
 const time_file_path = 'time.txt';
 const time_to_hell = 5;
 
-fs.access('time.txt', fs.constants.F_OK | fs.constants.R_OK, (err) => {
-    if (err) {
-        console.error(err);
-        limitTime = init_limit_time(time_file_path);
-    } else {
-        console.log('Time File exists');
-        limitTime = read_time_file(time_file_path);
-    }
-})
+app.use(morgan('combined'));
+
+if (check_time_file() === false) {
+    write_refresh_limit_time(time_file_path);
+}
+let limitTime : Date = read_time_file(time_file_path);
 
 app.get('/time', (req: Request, res: Response) => {
   // return the remaining time
@@ -36,9 +31,10 @@ app.get('/time', (req: Request, res: Response) => {
 
 app.post('/time', (req: Request, res: Response) => {
     // set the limit time
-    // limitTime = now + 7 days
-    limitTime = init_limit_time(time_file_path);
-    res.send('Set limit time');
+    // limitTime = now + 5 days
+    write_refresh_limit_time(time_file_path);
+    res.status(200);
+    res.send(`Success to set limit time: ${limitTime}`);
 });
 
 app.listen(3000, () => {
@@ -46,20 +42,39 @@ app.listen(3000, () => {
     console.log('Server Start with Limit time:', limitTime);
 });
 
-function init_limit_time(path : string) : Date {
+function write_refresh_limit_time(path : string) : void {
     let new_limit_date : Date = new Date();
     new_limit_date.setDate(new_limit_date.getDate() + time_to_hell);
-    fs.writeFileSync(path, new_limit_date.toString());
-    return new_limit_date;
+    try {
+        fs.writeFileSync(path, new_limit_date.toString());
+        console.log(`${write_refresh_limit_time.name} : ${new_limit_date}`)
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+function check_time_file() : boolean {
+    try {
+        fs.accessSync('time.txt', fs.constants.F_OK | fs.constants.R_OK);
+        console.log('Time File exists');
+        return true;
+    } catch (err) {
+        console.log('Time File does not exist');
+        return false;
+    }
 }
 
 function read_time_file(path : string) : Date {
-    const Data : string = fs.readFileSync(path).toString();
-    const date : Date = new Date(Data);
-    if (date instanceof Date && !isNaN(date.getTime())) {
-        return date;
+    try {
+        const Data : string = fs.readFileSync(path).toString();
+        const date : Date = new Date(Data);
+        if (date instanceof Date && !isNaN(date.getTime())) {
+            return date;
+        }
+    } catch (err) {
+        console.error(err);
+        return undefined;
     }
-    return undefined;
 }
 
 function get_time_in_form_DHMS(time_ms) {
