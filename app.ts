@@ -20,13 +20,15 @@ let limitTime : Date = read_time_file(time_file_path);
 
 app.get('/time', (req: Request, res: Response) => {
   if (limitTime === undefined) {
-    res.status(500);
-    res.send('No limit time');
+    res.status(500).send({ result : 'No limit time' });
   } else {
     const now = new Date();
     const remainTime = limitTime.getTime() - now.getTime();
-    res.status(200);
-    res.send(get_time_in_form_DHMS(remainTime));
+    const remainTimeInForm = get_time_in_form_DHMS(remainTime);
+    res.status(200).send({
+        result : 'success',
+        remainTime : get_time_in_form_DHMS(remainTime)
+    })
   }
 });
 
@@ -34,12 +36,11 @@ app.post('/time', (req: Request, res: Response) => {
     console.log('POST /time');
     if (write_refresh_limit_time(time_file_path) === false) {
         res.status(500);
-        res.send('Refresh failed');
+        res.send({ result : 'failed' });
     } else {
         limitTime = read_time_file(time_file_path);
+        res.status(200).send({ result : 'Refreshed' });
     }
-    res.status(200);
-    res.send('Refreshed');
 });
 
 app.listen(3000, () => {
