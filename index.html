@@ -31,9 +31,19 @@
     }
     if (answer === az_gag[1]) {
       const url = "http://localhost:3000/time"
-      fetch(url, { method: "POST" }).then(() => {
+      fetch(url, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(
+          {
+            isRight: true
+          }
+        )
+      }).then((e) => {
+        alert(e)
         alert("축하합니다! 정답입니다! 시간이 다시 늘어났습니다!");
-        window.reload();
       }
       )
     }
@@ -65,7 +75,7 @@
           setNumber(_mils[1], Math.floor(remainTime.millisecond / 10) % 10, 1);
           setNumber(_mils[2], remainTime.millisecond % 10, 1);
         })
-    }, 420)
+    }, 42000000)
   });
 
   const setNumber = (digit, number, on) => {
