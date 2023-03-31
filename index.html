@@ -1,14 +1,39 @@
 <!-- usage: query index.json or ${i}.json -->
 <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+<!-- az-gag 가지고 오기-->
 <script>
+  let az_gag;
   document.addEventListener('DOMContentLoaded', async () => {
     new TypeIt(".title", {
       breakLines: false,
       speed: 75,
       loop: false,
     }).move(-7).pause(1000).delete(7).type("카뎃을 ").pause(1000).delete(4).type("당신을 ").move(7).go();
+
+    const url = "http://localhost:3000/az"
+    fetch(url)
+      .then((response) => { return response.json() })
+      .then((data) => { az_gag = data })
+      .then(() => {
+        document.querySelector("#question").innerText = az_gag[0];
+      })
   }
   );
+
+  function validateForm() {
+    let answer = document.forms["az-gag"]["answer"].value;
+    if (answer === "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    if (answer !== az_gag[1]) {
+      alert("틀렸습니다! 다른 답을 한번 생각해봐요!");
+    }
+    if (answer === az_gag[1]) {
+      alert("축하합니다! 정답입니다! 시간이 다시 늘어났습니다!");
+      window.reload();
+    }
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const _hours = document.querySelectorAll('.hours');
@@ -23,7 +48,6 @@
         .then((response) => { return response.json() })
         .then((data) => remainTime = data.remainTime)
         .then(() => {
-          console.log(remainTime);
           setNumber(_hours[0], Math.floor(remainTime.hour / 10), 1);
           setNumber(_hours[1], remainTime.hour % 10, 1);
 
@@ -197,7 +221,7 @@
     </section>
 
     <section class="az-gag-submit">
-      <form class="az-gag-submit-form">
+      <form name="az-gag" class="az-gag-submit-form" onsubmit="return validateForm()">
         <p id="title"> 아재개그 퀴즈 </p>
         <div class="form-input">
           <div id="question">API에서 가지고온 질문</div>
@@ -207,7 +231,7 @@
           <span>!</span>
           <p class="warning">아재개그 답변을 제대로 작성해주세요!</p>
         </div>
-        <input class="submit-btn" type="submit" value="채점받기">
+        <input class="submit-btn" onclick="validateForm()" value="채점받기">
         <p class="form-term"> <a href="./dist/policy.html">개인정보보호 및 저작권 처리방침</a> </p>
       </form>
     </section>
