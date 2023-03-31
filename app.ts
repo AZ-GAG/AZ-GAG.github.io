@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import morgan from 'morgan';
+import cors from 'cors'
+import AzGagGenerator from "az-generator";
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -13,9 +15,11 @@ const refresh_guard_ms = 3000;
 */
 const minutes_to_hell = 42;
 
+app.use(bodyParser.json());
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 if (check_time_file() === false) {
     write_refresh_limit_time(time_file_path);
@@ -35,6 +39,11 @@ app.get('/time', (req: Request, res: Response) => {
     })
   }
 });
+
+app.get('/az', (req: Request, res: Response) => {
+  console.log(AzGagGenerator());
+  res.status(200).send(AzGagGenerator());
+})
 
 app.post('/time', (req: Request, res: Response) => {
     const now = new Date();
