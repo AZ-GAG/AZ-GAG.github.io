@@ -4,6 +4,7 @@ import morgan from 'morgan';
 
 const app = express();
 const time_file_path = 'time.txt';
+const refresh_guard_ms = 3000;
 
 /*
 ** 7일 후에 hell로 보내는 서버
@@ -38,7 +39,7 @@ app.post('/time', (req: Request, res: Response) => {
     // if remain time is more than 6 seconds, do not refresh
     const now = new Date();
     const remainTime = limitTime.getTime() - now.getTime();
-    if (remainTime > 6000) {
+    if (remainTime > refresh_guard_ms) {
         res.status(200).send({ result : 'Not Refreshed' });
         return;
     }
