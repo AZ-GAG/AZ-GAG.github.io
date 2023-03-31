@@ -9,7 +9,7 @@ const time_file_path = 'time.txt';
 ** 7일 후에 hell로 보내는 서버
 ** 기간을 늘리고 싶으면 Day 단위로 아래의 time_to_hell 값을 변경하면 된다.
 */
-const time_to_hell = 7;
+const minutes_to_hell = 42;
 
 app.use(morgan('combined'));
 
@@ -53,7 +53,7 @@ app.listen(3000, () => {
 */
 function write_refresh_limit_time(path : string) : Boolean {
     let new_limit_date : Date = new Date();
-    new_limit_date.setDate(new_limit_date.getDate() + time_to_hell);
+    new_limit_date.setMinutes(new_limit_date.getMinutes() + minutes_to_hell);
     try {
         fs.writeFileSync(path, new_limit_date.toString());
         console.log(`${write_refresh_limit_time.name} : ${new_limit_date}`)
