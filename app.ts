@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import morgan from 'morgan';
+import cors from 'cors'
 
 const app = express();
 const time_file_path = 'time.txt';
@@ -12,7 +13,7 @@ const time_file_path = 'time.txt';
 const time_to_hell = 7;
 
 app.use(morgan('combined'));
-
+app.use(cors());
 if (check_time_file() === false) {
     write_refresh_limit_time(time_file_path);
 }
