@@ -34,9 +34,16 @@ app.get('/time', (req: Request, res: Response) => {
 
 app.post('/time', (req: Request, res: Response) => {
     console.log('POST /time');
+    
+    // if remain time is more than 6 seconds, do not refresh
+    const now = new Date();
+    const remainTime = limitTime.getTime() - now.getTime();
+    if (remainTime > 6000) {
+        res.status(200).send({ result : 'Not Refreshed' });
+        return;
+    }
     if (write_refresh_limit_time(time_file_path) === false) {
-        res.status(500);
-        res.send({ result : 'failed' });
+        res.status(500).send({ result : 'failed' });
     } else {
         limitTime = read_time_file(time_file_path);
         res.status(200).send({ result : 'Refreshed' });
