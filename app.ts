@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import fs from 'fs';
 import morgan from 'morgan';
 import cors from 'cors'
+import AzGagGenerator from "az-generator";
 
 const app = express();
 const time_file_path = 'time.txt';
@@ -32,6 +33,11 @@ app.get('/time', (req: Request, res: Response) => {
     })
   }
 });
+
+app.get('/az', (req: Request, res: Response) => {
+  console.log(AzGagGenerator());
+  res.status(200).send(AzGagGenerator());
+})
 
 app.post('/time', (req: Request, res: Response) => {
     console.log('POST /time');
