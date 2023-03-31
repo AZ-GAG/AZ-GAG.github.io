@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 const app = express();
 const time_file_path = 'time.txt';
@@ -13,6 +14,8 @@ const refresh_guard_ms = 3000;
 const minutes_to_hell = 42;
 
 app.use(morgan('combined'));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 if (check_time_file() === false) {
     write_refresh_limit_time(time_file_path);
@@ -34,12 +37,9 @@ app.get('/time', (req: Request, res: Response) => {
 });
 
 app.post('/time', (req: Request, res: Response) => {
-    console.log('POST /time');
-    
-    // if remain time is more than 6 seconds, do not refresh
     const now = new Date();
     const remainTime = limitTime.getTime() - now.getTime();
-    if (remainTime > refresh_guard_ms) {
+    if (remainTime > refresh_guard_ms && req.body.isRight !== true) {
         res.status(201).send({ result : 'Not Refreshed' });
         return;
     }
