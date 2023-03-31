@@ -30,8 +30,12 @@
       alert("틀렸습니다! 다른 답을 한번 생각해봐요!");
     }
     if (answer === az_gag[1]) {
-      alert("축하합니다! 정답입니다! 시간이 다시 늘어났습니다!");
-      window.reload();
+      const url = "http://localhost:3000/time"
+      fetch(url, { method: "POST" }).then(() => {
+        alert("축하합니다! 정답입니다! 시간이 다시 늘어났습니다!");
+        window.reload();
+      }
+      )
     }
   }
 
