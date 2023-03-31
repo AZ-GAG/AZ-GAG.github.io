@@ -17,23 +17,27 @@
     const _mils = document.querySelectorAll('.mils');
 
     setInterval(() => {
-      // TODO: 서버에서 마감까지 남은 시간 가지고 와서 설정
-      const date = new Date();
-      const hours = date.getHours(), minutes = date.getMinutes(), seconds = date.getSeconds();
+      const url = "http://localhost:3000/time";
+      let remainTime;
+      fetch(url)
+        .then((response) => { return response.json() })
+        .then((data) => remainTime = data.remainTime)
+        .then(() => {
+          console.log(remainTime);
+          setNumber(_hours[0], Math.floor(remainTime.hour / 10), 1);
+          setNumber(_hours[1], remainTime.hour % 10, 1);
 
-      setNumber(_hours[0], Math.floor(hours / 10), 1);
-      setNumber(_hours[1], hours % 10, 1);
+          setNumber(_minutes[0], Math.floor(remainTime.minute / 10), 1);
+          setNumber(_minutes[1], remainTime.minute % 10, 1);
 
-      setNumber(_minutes[0], Math.floor(minutes / 10), 1);
-      setNumber(_minutes[1], minutes % 10, 1);
+          setNumber(_seconds[0], Math.floor(remainTime.second / 10), 1);
+          setNumber(_seconds[1], remainTime.second % 10, 1);
 
-      setNumber(_seconds[0], Math.floor(seconds / 10), 1);
-      setNumber(_seconds[1], seconds % 10, 1);
-
-      setNumber(_mils[0], Math.floor(date.getMilliseconds() / 100), 1);
-      setNumber(_mils[1], Math.floor(date.getMilliseconds() / 10) % 10, 1);
-      setNumber(_mils[2], date.getMilliseconds() % 10, 1);
-    }, 42);
+          setNumber(_mils[0], Math.floor(remainTime.millisecond / 100), 1);
+          setNumber(_mils[1], Math.floor(remainTime.millisecond / 10) % 10, 1);
+          setNumber(_mils[2], remainTime.millisecond % 10, 1);
+        })
+    }, 420)
   });
 
   const setNumber = (digit, number, on) => {
