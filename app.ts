@@ -40,7 +40,7 @@ app.post('/time', (req: Request, res: Response) => {
     const now = new Date();
     const remainTime = limitTime.getTime() - now.getTime();
     if (remainTime > refresh_guard_ms) {
-        res.status(200).send({ result : 'Not Refreshed' });
+        res.status(201).send({ result : 'Not Refreshed' });
         return;
     }
     if (write_refresh_limit_time(time_file_path) === false) {
