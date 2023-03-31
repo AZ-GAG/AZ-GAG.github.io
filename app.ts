@@ -3,6 +3,7 @@ import fs from 'fs';
 import morgan from 'morgan';
 import cors from 'cors'
 import AzGagGenerator from "az-generator";
+import bodyParser from 'body-parser';
 
 const app = express();
 const time_file_path = 'time.txt';
@@ -13,6 +14,7 @@ const time_file_path = 'time.txt';
 */
 const minutes_to_hell = 42;
 
+app.use(bodyParser.json());
 app.use(morgan('combined'));
 app.use(cors());
 if (check_time_file() === false) {
@@ -40,6 +42,7 @@ app.get('/az', (req: Request, res: Response) => {
 })
 
 app.post('/time', (req: Request, res: Response) => {
+    console.log(req.body);
     console.log('POST /time');
     if (write_refresh_limit_time(time_file_path) === false) {
         res.status(500);
