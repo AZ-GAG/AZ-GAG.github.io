@@ -3,9 +3,17 @@ import fs from 'fs';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
+const https = require('https');
 const app = express();
 const time_file_path = 'time.txt';
 const refresh_guard_ms = 3000;
+
+const options = {
+    key: fs.readFileSync('/home/ec2-user/ssl/rootca.key'),
+    cert: fs.readFileSync('/home/ec2-user/ssl/rootca.crt'),
+};
+
+https.createServer(options, app).listen(8080);
 
 /*
 ** 7일 후에 hell로 보내는 서버
