@@ -10,7 +10,7 @@
       loop: false,
     }).move(-7).pause(1000).delete(7).type("카뎃을 ").pause(1000).delete(4).type("당신을 ").move(7).go();
 
-    const url = "http://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:3000/az"
+    const url = "https://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:8080/az"
     fetch(url)
       .then((response) => { return response.json() })
       .then((data) => { az_gag = data })
@@ -30,7 +30,7 @@
       alert("틀렸습니다! 다른 답을 한번 생각해봐요!");
     }
     if (answer === az_gag[1]) {
-      const url = "http://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:3000/time"
+      const url = "https://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:8080/time"
       fetch(url, {
         headers: {
           'Content-Type': 'application/json'
@@ -56,7 +56,7 @@
     const _mils = document.querySelectorAll('.mils');
 
     setInterval(() => {
-      const url = "http://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:3000/time";
+      const url = "https://ec2-13-124-63-162.ap-northeast-2.compute.amazonaws.com:8080/time";
       let remainTime;
       fetch(url)
         .then((response) => { return response.json() })
